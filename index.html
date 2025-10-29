@@ -145,7 +145,7 @@
     // 1) 將下方 promos 陣列換成你的促銷清單（也可用「匯入 CSV」載入）。
     // 2) 每筆資料：brand(品牌), pattern(花紋), width(寬度), aspect(扁平比), rim(鋼圈), load(負載, 選填), speed(速度等級, 選填), note(備註), onPromo(是否促銷true/false)
     // 3) 之後把本檔案上傳到任一靜態空間（例如 GitHub Pages/Netlify/自己主機）。
-
+    <script>
     /**
      * 範例資料：請改成你們實際促銷表（可以從你做的 FB 表格匯出 CSV，再匯入）
      */
@@ -156,9 +156,9 @@
       { brand: 'Maxxis', pattern: 'HP5', width: 205, aspect: 55, rim: 16, load: '91', speed: 'V', onPromo: true,  note: '' },
       { brand: 'Michelin', pattern: 'Pilot Sport 4', width: 225, aspect: 45, rim: 18, load: '95', speed: 'W', onPromo: true,  note: '登錄送禮' },
       { brand: 'Bridgestone', pattern: 'Turanza T005A', width: 215, aspect: 55, rim: 17, load: '94', speed: 'V', onPromo: false, note: '' },
-      { brand: 'Nexen', pattern: 'N'Fera SU1', width: 205, aspect: 50, rim: 17, load: '93', speed: 'W', onPromo: true, note: '二入小折' },
+      { brand: 'Nexen', pattern: "N'Fera SU1", width: 205, aspect: 50, rim: 17, load: '93', speed: 'W', onPromo: true, note: '二入小折' },
     ];
-
+    </script>
     // ======== 基本工具 ========
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => Array.from(document.querySelectorAll(sel));
