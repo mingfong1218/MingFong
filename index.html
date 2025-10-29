@@ -3,126 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>銘峰輪胎 促銷快查｜Tire Promotion Finder</title>
+  <title>銘峰輪胎 促銷快查</title>
   <style>
-    :root {
-      --bg: #0b0f13;
-      --card: #121821;
-      --muted: #8aa1b1;
-      --text: #e9f0f6;
-      --accent: #ffd233; /* 接近 Continental 黃 */
-      --ok: #2ecc71;
-      --danger: #ff6b6b;
-      --chip: #1b2430;
-      --chip2: #232f3e;
-    }
-    * { box-sizing: border-box; }
     body {
-      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans TC', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
-      background: linear-gradient(180deg, #0a0f13, #0e141b 60%, #0a0f13);
-      color: var(--text);
+      background: #0a0f13;
+      color: #e9f0f6;
+      font-family: 'Noto Sans TC', sans-serif;
+      margin: 0;
+      padding: 20px;
     }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 20px; }
-    header { display: grid; gap: 8px; margin: 8px 0 16px; }
-    .title { font-size: clamp(22px, 4vw, 34px); font-weight: 800; letter-spacing: .5px; }
-    .subtitle { color: var(--muted); font-size: 14px; }
+    .wrap { max-width: 960px; margin: auto; }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 0; }
+    .beta { background: #ffd233; color: #111; font-weight: bold; padding: 2px 8px; border-radius: 8px; font-size: 14px; }
     .card {
-      background: radial-gradient(1600px 400px at 50% -20%, rgba(255,210,51,.08), transparent 60%), var(--card);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 18px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      background: #121821;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
-    .grid { display: grid; gap: 12px; }
-    .grid.cols-2 { grid-template-columns: 1fr; }
-    @media (min-width: 720px) { .grid.cols-2 { grid-template-columns: 1fr 1fr; } }
-    label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; }
+    label { font-size: 14px; color: #b9c7d4; display: block; margin-bottom: 4px; }
     input, select {
-      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: #0f151d; color: var(--text);
-      outline: none; box-shadow: inset 0 0 0 1px transparent; transition: box-shadow .2s, border-color .2s;
+      background: #0f151d;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 8px;
     }
-    input:focus, select:focus { border-color: rgba(255,210,51,.6); box-shadow: inset 0 0 0 1px rgba(255,210,51,.5); }
-    .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    .row-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-    .btn {
-      appearance: none; border: 0; background: var(--accent); color: #111; font-weight: 800; padding: 12px 16px; border-radius: 12px; cursor: pointer; box-shadow: 0 8px 16px rgba(255,210,51,.25);
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
     }
-    .btn.secondary { background: #1b2532; color: var(--text); box-shadow: none; border: 1px solid rgba(255,255,255,.1); }
-    .btn.ghost { background: transparent; color: var(--muted); border: 1px dashed rgba(255,255,255,.2); }
-    .hint { font-size: 12px; color: var(--muted); }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip { background: var(--chip); border: 1px solid rgba(255,255,255,.06); padding: 6px 10px; border-radius: 999px; font-size: 12px; color: #cfe0ec; }
-    .chip.badge { background: var(--accent); color: #111; font-weight: 800; }
-
-    .table {
-      width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 14px; border: 1px solid rgba(255,255,255,.08);
+    .btn-yellow { background: #ffd233; color: #111; }
+    .btn-gray { background: #1b2532; color: #e9f0f6; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 14px;
     }
-    .table thead th {
-      text-align: left; font-size: 12px; letter-spacing: .3px; color: #b9c7d4; padding: 10px; background: #111722; position: sticky; top: 0; z-index: 1;
-    }
-    .table tbody td { padding: 12px 10px; border-top: 1px solid rgba(255,255,255,.06); font-size: 14px; }
-    .pill { padding: 4px 8px; border-radius: 999px; font-weight: 700; font-size: 12px; display: inline-block; }
-    .pill.ok { background: rgba(46,204,113,.15); color: var(--ok); border: 1px solid rgba(46,204,113,.35); }
-    .pill.no { background: rgba(255,107,107,.12); color: var(--danger); border: 1px solid rgba(255,107,107,.3); }
-
-    .footer { margin: 20px 0; color: var(--muted); font-size: 12px; text-align: center; }
-    .brand { font-weight: 900; color: var(--accent); }
-
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace; font-size: 12px; background: #0f151d; border: 1px solid rgba(255,255,255,.12); border-bottom-width: 2px; padding: 2px 6px; border-radius: 6px; color: #d3e4f2; }
-
-    .flex { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    th, td { padding: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+    th { color: #b9c7d4; text-align: left; background: #111722; }
+    .pill { padding: 4px 8px; border-radius: 999px; font-weight: bold; font-size: 12px; display: inline-block; }
+    .ok { background: rgba(46,204,113,0.15); color: #2ecc71; border: 1px solid rgba(46,204,113,0.4); }
+    .no { background: rgba(255,107,107,0.15); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.4); }
+    footer { margin-top: 20px; font-size: 12px; color: #8aa1b1; text-align: center; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="title">銘峰輪胎 促銷快查 <span class="chip badge">Beta</span></div>
-      <div class="subtitle">輸入 <span class="kbd">205/55R16</span> 或從下拉選擇尺寸與品牌，立刻查詢是否在促銷範圍內。</div>
-    </header>
-
-    <section class="card grid" style="gap:16px; margin-bottom: 14px;">
-      <div class="grid cols-2">
-        <div>
-          <label>直接輸入尺寸（支援 205/55R16、205-55-16、205 55 16 等格式）</label>
-          <input id="sizeInput" type="text" placeholder="例：205/55R16" autocomplete="off" />
-          <div class="hint">可額外輸入負載/速度等級（如 <span class="kbd">91V</span>），若資料表有對應也會比對。</div>
-        </div>
-        <div class="grid" style="gap:10px;">
-          <div class="row-5">
-            <div>
-              <label>寬度</label>
-              <select id="selWidth"><option value="">全部</option></select>
-            </div>
-            <div>
-              <label>扁平比</label>
-              <select id="selAspect"><option value="">全部</option></select>
-            </div>
-            <div>
-              <label>鋼圈</label>
-              <select id="selRim"><option value="">全部</option></select>
-            </div>
-            <div>
-              <label>品牌</label>
-              <select id="selBrand"><option value="">全部</option></select>
-            </div>
-            <div>
-              <label>花紋</label>
-              <select id="selPattern"><option value="">全部</option></select>
-            </div>
-          </div>
-          <div class="flex">
-            <button class="btn" id="btnSearch">查詢</button>
-            <button class="btn secondary" id="btnReset">清除</button>
-            <label class="hint">或&nbsp;</label>
-            <label class="btn ghost" for="csvFile" style="cursor:pointer;">匯入 CSV</label>
-            <input id="csvFile" type="file" accept=".csv" hidden />
-          </div>
-          <div class="chips" id="activeFilters"></div>
-        </div>
+    <h1>銘峰輪胎 促銷快查 <span class="beta">Beta</span></h1>
+    <div class="card">
+      <label>直接輸入尺寸（例如：205/55R16 或 225/45R18）</label>
+      <input id="sizeInput" placeholder="例：205/55R16 91V 或 225/45R18" />
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+        <select id="selWidth"><option value="">全部</option></select>
+        <select id="selAspect"><option value="">全部</option></select>
+        <select id="selRim"><option value="">全部</option></select>
+        <select id="selBrand"><option value="">全部</option></select>
+        <select id="selPattern"><option value="">全部</option></select>
+        <button class="btn-yellow" id="btnSearch">查詢</button>
+        <button class="btn-gray" id="btnReset">清除</button>
+        <label class="btn-gray" for="csvFile" style="cursor:pointer;">匯入 CSV</label>
+        <input id="csvFile" type="file" accept=".csv" hidden />
       </div>
-      <div class="hint">小技巧：可把此頁上傳到你的網域或 GitHub Pages／Netlify，並在 FB 貼文加按鈕導流進來。</div>
-    </section>
+    </div>
 
-    <section class="card">
-      <table class="table" id="resultTable">
+    <div class="card">
+      <table id="resultTable">
         <thead>
           <tr>
             <th>品牌</th>
@@ -135,205 +88,98 @@
         </thead>
         <tbody id="resultBody"></tbody>
       </table>
-    </section>
+    </div>
 
-    <div class="footer">© <span class="brand">銘峰輪業</span> ｜ Demo 版本，實際促銷以門市公告為準。</div>
+    <footer>© 銘峰輪業 ｜ Demo 版本，實際促銷以門市公告為準。</footer>
   </div>
 
   <script>
-    // ======== 使用說明 ========
-    // 1) 將下方 promos 陣列換成你的促銷清單（也可用「匯入 CSV」載入）。
-    // 2) 每筆資料：brand(品牌), pattern(花紋), width(寬度), aspect(扁平比), rim(鋼圈), load(負載, 選填), speed(速度等級, 選填), note(備註), onPromo(是否促銷true/false)
-    // 3) 之後把本檔案上傳到任一靜態空間（例如 GitHub Pages/Netlify/自己主機）。
-    <script>
-    /**
-     * 範例資料：請改成你們實際促銷表（可以從你做的 FB 表格匯出 CSV，再匯入）
-     */
-    let promos = [
-      { brand: 'Continental', pattern: 'UC6', width: 205, aspect: 55, rim: 16, load: '91', speed: 'V', onPromo: true,  note: '四入價；登錄贈品' },
-      { brand: 'Continental', pattern: 'CC6', width: 195, aspect: 65, rim: 15, load: '91', speed: 'H', onPromo: true,  note: '熱門促銷' },
-      { brand: 'Continental', pattern: 'SportContact 6', width: 255, aspect: 35, rim: 19, load: '96', speed: 'Y', onPromo: false, note: '限量到貨' },
-      { brand: 'Maxxis', pattern: 'HP5', width: 205, aspect: 55, rim: 16, load: '91', speed: 'V', onPromo: true,  note: '' },
-      { brand: 'Michelin', pattern: 'Pilot Sport 4', width: 225, aspect: 45, rim: 18, load: '95', speed: 'W', onPromo: true,  note: '登錄送禮' },
-      { brand: 'Bridgestone', pattern: 'Turanza T005A', width: 215, aspect: 55, rim: 17, load: '94', speed: 'V', onPromo: false, note: '' },
-      { brand: 'Nexen', pattern: "N'Fera SU1", width: 205, aspect: 50, rim: 17, load: '93', speed: 'W', onPromo: true, note: '二入小折' },
-    ];
-    </script>
-    // ======== 基本工具 ========
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+  let promos = [
+    { brand: 'Continental', pattern: 'UC6', width: 205, aspect: 55, rim: 16, load: '91', speed: 'V', onPromo: true, note: '四入價；登錄贈品' },
+    { brand: 'Continental', pattern: 'CC6', width: 195, aspect: 65, rim: 15, load: '91', speed: 'H', onPromo: true, note: '熱門促銷' },
+    { brand: 'Continental', pattern: 'SportContact 6', width: 255, aspect: 35, rim: 19, load: '96', speed: 'Y', onPromo: false, note: '限量到貨' },
+    { brand: 'Maxxis', pattern: 'HP5', width: 205, aspect: 55, rim: 16, load: '91', speed: 'V', onPromo: true, note: '' },
+    { brand: 'Michelin', pattern: 'Pilot Sport 4', width: 225, aspect: 45, rim: 18, load: '95', speed: 'W', onPromo: true, note: '登錄送禮' },
+    { brand: 'Bridgestone', pattern: 'Turanza T005A', width: 215, aspect: 55, rim: 17, load: '94', speed: 'V', onPromo: false, note: '' },
+    { brand: 'Nexen', pattern: "N'Fera SU1", width: 205, aspect: 50, rim: 17, load: '93', speed: 'W', onPromo: true, note: '二入小折' },
+  ];
 
-    // 解析尺寸字串：支援 205/55R16、205-55-16、205 55 16、225/45ZR18 95W 等
-    function parseSize(input) {
-      if (!input) return null;
-      const s = input.trim().toUpperCase().replace(/\s+/g, '');
-      // 先抓寬/扁/圈
-      const m = s.match(/(\d{3})[\/-]?(\d{2})?R?(\d{2})/i) || s.match(/(\d{3})[\/-]?(\d{2})?[Z]?R?(\d{2})/i);
-      if (!m) return null;
-      const width = parseInt(m[1], 10);
-      const aspect = m[2] ? parseInt(m[2], 10) : null;
-      const rim = parseInt(m[3], 10);
-      // 抓負載與速度（如 91V / 95W）
-      const mLS = s.match(/(\d{2,3})([A-Z])$/);
-      const load = mLS ? mLS[1] : null;
-      const speed = mLS ? mLS[2] : null;
-      return { width, aspect, rim, load, speed };
-    }
+  const $ = s => document.querySelector(s);
 
-    function uniq(values) {
-      return Array.from(new Set(values.filter(v => v !== undefined && v !== null && v !== '')));
-    }
+  function populateFilters() {
+    const widths  = [...new Set(promos.map(p => p.width))].sort((a,b)=>a-b);
+    const aspects = [...new Set(promos.map(p => p.aspect))].sort((a,b)=>a-b);
+    const rims    = [...new Set(promos.map(p => p.rim))].sort((a,b)=>a-b);
+    const brands  = [...new Set(promos.map(p => p.brand))].sort();
+    const patterns= [...new Set(promos.map(p => p.pattern))].sort();
 
-    function populateFilters() {
-      const widths  = uniq(promos.map(p => p.width)).sort((a,b)=>a-b);
-      const aspects = uniq(promos.map(p => p.aspect)).sort((a,b)=>a-b);
-      const rims    = uniq(promos.map(p => p.rim)).sort((a,b)=>a-b);
-      const brands  = uniq(promos.map(p => p.brand)).sort();
-      const patterns= uniq(promos.map(p => p.pattern)).sort();
-      fillOptions('#selWidth', widths);
-      fillOptions('#selAspect', aspects);
-      fillOptions('#selRim', rims);
-      fillOptions('#selBrand', brands);
-      fillOptions('#selPattern', patterns);
-    }
+    fillOptions('#selWidth', widths);
+    fillOptions('#selAspect', aspects);
+    fillOptions('#selRim', rims);
+    fillOptions('#selBrand', brands);
+    fillOptions('#selPattern', patterns);
+  }
 
-    function fillOptions(sel, arr) {
-      const el = $(sel);
-      arr.forEach(v => {
-        const opt = document.createElement('option');
-        opt.value = String(v);
-        opt.textContent = String(v);
-        el.appendChild(opt);
-      });
-    }
-
-    function activeFilterChips(filters) {
-      const box = $('#activeFilters');
-      box.innerHTML = '';
-      Object.entries(filters).forEach(([k,v]) => {
-        if (!v) return;
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.textContent = `${k}: ${v}`;
-        box.appendChild(chip);
-      });
-    }
-
-    function search() {
-      const raw = $('#sizeInput').value;
-      const parsed = parseSize(raw);
-      const sel = {
-        width: $('#selWidth').value,
-        aspect: $('#selAspect').value,
-        rim: $('#selRim').value,
-        brand: $('#selBrand').value,
-        pattern: $('#selPattern').value
-      };
-
-      const filters = { };
-      if (parsed?.width)  filters.width = parsed.width;
-      if (parsed?.aspect) filters.aspect = parsed.aspect;
-      if (parsed?.rim)    filters.rim = parsed.rim;
-      if (parsed?.load)   filters.load = parsed.load;
-      if (parsed?.speed)  filters.speed = parsed.speed;
-      if (sel.width)  filters.width = parseInt(sel.width,10);
-      if (sel.aspect) filters.aspect = parseInt(sel.aspect,10);
-      if (sel.rim)    filters.rim = parseInt(sel.rim,10);
-      if (sel.brand)  filters.brand = sel.brand;
-      if (sel.pattern)filters.pattern = sel.pattern;
-
-      activeFilterChips(filters);
-
-      const rows = promos.filter(p => {
-        return (
-          (filters.width ? p.width === filters.width : true) &&
-          (filters.aspect ? p.aspect === filters.aspect : true) &&
-          (filters.rim ? p.rim === filters.rim : true) &&
-          (filters.brand ? p.brand === filters.brand : true) &&
-          (filters.pattern ? p.pattern === filters.pattern : true) &&
-          (filters.load ? (p.load||'') == filters.load : true) &&
-          (filters.speed ? (p.speed||'') == filters.speed : true)
-        );
-      });
-
-      render(rows);
-    }
-
-    function render(rows) {
-      const tbody = $('#resultBody');
-      tbody.innerHTML = '';
-      if (!rows.length) {
-        const tr = document.createElement('tr');
-        const td = document.createElement('td');
-        td.colSpan = 6; td.style.color = '#b9c7d4';
-        td.textContent = '查無符合條件的促銷；可嘗試移除部分過濾或改用相近尺寸。';
-        tr.appendChild(td); tbody.appendChild(tr);
-        return;
-      }
-
-      rows.forEach(r => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${r.brand||''}</td>
-          <td>${r.pattern||''}</td>
-          <td><span class="chip">${r.width}/${r.aspect}R${r.rim}</span></td>
-          <td>${(r.load||'')}${(r.speed||'')}</td>
-          <td>${r.onPromo ? '<span class="pill ok">促銷中</span>' : '<span class="pill no">暫無</span>'}</td>
-          <td>${r.note||''}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function resetAll() {
-      $('#sizeInput').value = '';
-      $$('#selWidth, #selAspect, #selRim, #selBrand, #selPattern').forEach(s => s.value='');
-      $('#activeFilters').innerHTML = '';
-      render(promos);
-    }
-
-    // CSV 匯入：欄位標題需包含 brand,pattern,width,aspect,rim,load,speed,note,onPromo
-    function parseCSV(text) {
-      const lines = text.split(/\r?\n/).filter(Boolean);
-      const headers = lines[0].split(',').map(h => h.trim());
-      const out = [];
-      for (let i=1; i<lines.length; i++) {
-        const cols = lines[i].split(',').map(c => c.trim());
-        const obj = {};
-        headers.forEach((h,idx)=>{ obj[h] = cols[idx]; });
-        obj.width = obj.width ? parseInt(obj.width,10) : undefined;
-        obj.aspect = obj.aspect ? parseInt(obj.aspect,10) : undefined;
-        obj.rim = obj.rim ? parseInt(obj.rim,10) : undefined;
-        obj.onPromo = String(obj.onPromo).toLowerCase() === 'true' || obj.onPromo === '1' || obj.onPromo === '是';
-        out.push(obj);
-      }
-      return out;
-    }
-
-    // 事件
-    $('#btnSearch').addEventListener('click', search);
-    $('#btnReset').addEventListener('click', resetAll);
-    $('#sizeInput').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
-    $('#csvFile').addEventListener('change', async (e) => {
-      const f = e.target.files?.[0]; if (!f) return;
-      const text = await f.text();
-      try {
-        const parsed = parseCSV(text);
-        if (parsed.length) {
-          promos = parsed; populateFilters(); render(promos);
-          alert(`已匯入 ${parsed.length} 筆資料`);
-        } else {
-          alert('CSV 內容解析為 0 筆，請檢查欄位標題。');
-        }
-      } catch (err) {
-        console.error(err); alert('CSV 解析失敗，請確認格式。');
-      }
-      e.target.value = '';
+  function fillOptions(sel, arr) {
+    const el = $(sel);
+    arr.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      el.appendChild(opt);
     });
+  }
 
-    // 初始化
-    populateFilters();
-    render(promos);
+  function render(rows) {
+    const body = $('#resultBody');
+    body.innerHTML = '';
+    if (!rows.length) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="6" style="color:#b9c7d4;">查無符合條件的資料</td>`;
+      body.appendChild(tr);
+      return;
+    }
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${r.brand}</td>
+        <td>${r.pattern}</td>
+        <td>${r.width}/${r.aspect}R${r.rim}</td>
+        <td>${r.load || ''}${r.speed || ''}</td>
+        <td>${r.onPromo ? '<span class="pill ok">促銷中</span>' : '<span class="pill no">暫無</span>'}</td>
+        <td>${r.note || ''}</td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  function search() {
+    const w = $('#selWidth').value;
+    const a = $('#selAspect').value;
+    const r = $('#selRim').value;
+    const b = $('#selBrand').value;
+    const p = $('#selPattern').value;
+    const s = $('#sizeInput').value.trim();
+
+    let filtered = promos;
+    if (w) filtered = filtered.filter(x => x.width == w);
+    if (a) filtered = filtered.filter(x => x.aspect == a);
+    if (r) filtered = filtered.filter(x => x.rim == r);
+    if (b) filtered = filtered.filter(x => x.brand == b);
+    if (p) filtered = filtered.filter(x => x.pattern == p);
+    if (s) {
+      const nums = s.match(/\d+/g);
+      if (nums && nums.length >= 2) {
+        filtered = filtered.filter(x => String(x.width).includes(nums[0]) && String(x.aspect).includes(nums[1]));
+      }
+    }
+    render(filtered);
+  }
+
+  $('#btnSearch').addEventListener('click', search);
+  $('#btnReset').addEventListener('click', () => render(promos));
+
+  populateFilters();
+  render(promos);
   </script>
 </body>
 </html>
