@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>銘峰輪胎 促銷快查</title>
+  <style>
+    :root{--bg:#0b0f13;--card:#121821;--muted:#8aa1b1;--text:#e9f0f6;--accent:#ffd233}
+    *{box-sizing:border-box}
+    body{margin:0;background:#0a0f13;color:var(--text);font-family:'Noto Sans TC',ui-sans-serif,system-ui}
+    .wrap{max-width:980px;margin:auto;padding:20px}
+    h1{font-size:28px;font-weight:900;margin:0 0 6px}
+    .beta{background:var(--accent);color:#111;font-weight:700;padding:2px 8px;border-radius:8px;font-size:14px}
+    .card{background:#121821;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;margin-top:16px}
+    label{font-size:14px;color:#b9c7d4;display:block;margin-bottom:6px}
+    input,select{width:100%;background:#0f151d;color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px;margin-bottom:8px}
+    button{border:none;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer}
+    .btn-yellow{background:var(--accent);color:#111}
+    .btn-gray{background:#1b2532;color:#e9f0f6}
+    table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}
+    th,td{padding:10px;border-top:1px solid rgba(255,255,255,.1)}
+    th{color:#b9c7d4;text-align:left;background:#111722}
+    .price-sale{color:var(--accent);font-weight:800}
+    footer{margin-top:20px;font-size:12px;color:#8aa1b1;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>銘峰輪胎 促銷快查 <span class="beta">Beta</span></h1>
+
+    <div class="card">
+      <label>直接輸入尺寸（支援 205/55R16、205-55-16、205 55 16 等格式）</label>
+      <input id="sizeInput" placeholder="例：205/55R16 91V 或 225/45R18" />
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <select id="selWidth"><option value="">胎面寬</option></select>
+        <select id="selAspect"><option value="">扁平比</option></select>
+        <select id="selRim"><option value="">輪框尺寸</option></select>
+        <select id="selBrand"><option value="">品牌</option></select>
+        <select id="selPattern"><option value="">花紋/型號</option></select>
+        <button class="btn-yellow" id="btnSearch">查詢</button>
+        <button class="btn-gray" id="btnReset">清除</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>品牌</th>
+            <th>花紋/型號</th>
+            <th>尺寸</th>
+            <th>規格</th>
+            <th>原價</th>
+            <th>促銷價</th>
+            <th>年份</th>
+            <th>數量</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+
+    <footer>© 銘峰輪業 ｜ Demo 版本，實際促銷以門市公告為準。</footer>
+  </div>
+
+<script>
+// 你的資料已寫死在這裡：
+let promos = [];
+
+const $ = s => document.querySelector(s);
+function uniq(a){return [...new Set(a.filter(v=>v!==undefined&&v!==null&&v!==''))]}
+function money(n){ if(n===undefined||n===null||n==='') return ''; return '$'+Number(n).toLocaleString('zh-Hant',{maximumFractionDigits:0}); }
+
+function populate(){
+  const widths=uniq(promos.map(p=>p.width)).sort((a,b)=>a-b);
+  const aspects=uniq(promos.map(p=>p.aspect)).sort((a,b)=>a-b);
+  const rims=uniq(promos.map(p=>p.rim)).sort((a,b)=>a-b);
+  const brands=uniq(promos.map(p=>p.brand)).sort();
+  const patterns=uniq(promos.map(p=>p.pattern)).sort();
+  fill('#selWidth',widths); fill('#selAspect',aspects); fill('#selRim',rims);
+  fill('#selBrand',brands); fill('#selPattern',patterns);
+}
+function fill(sel,arr){ const el=$(sel); el.innerHTML='<option value="">全部</option>'; arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;el.appendChild(o);}); }
+
+function render(rows){
+  const body=$('#resultBody'); body.innerHTML='';
+  if(!rows.length){ const tr=document.createElement('tr'); tr.innerHTML='<td colspan="8" style="color:#b9c7d4;">查無符合條件的資料</td>'; body.appendChild(tr); return; }
+  rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${r.brand||''}</td>
+                  <td>${r.pattern||''}</td>
+                  <td>${r.width}/${r.aspect}R${r.rim}</td>
+                  <td>${(r.load||'')+(r.speed||'')}</td>
+                  <td>${money(r.originPrice)}</td>
+                  <td class="price-sale">${money(r.promoPrice)}</td>
+                  <td>${r.year||''}</td>
+                  <td>${r.qty||''}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+function search(){
+  const w=$('#selWidth').value,a=$('#selAspect').value,r=$('#selRim').value,b=$('#selBrand').value,p=$('#selPattern').value,s=$('#sizeInput').value.trim();
+  let rows=promos.slice();
+  if(w) rows=rows.filter(x=>String(x.width)==w);
+  if(a) rows=rows.filter(x=>String(x.aspect)==a);
+  if(r) rows=rows.filter(x=>String(x.rim)==r);
+  if(b) rows=rows.filter(x=>x.brand==b);
+  if(p) rows=rows.filter(x=>x.pattern==p);
+  if(s){ const m=s.match(/\d+/g); if(m&&m.length>=2) rows=rows.filter(x=>String(x.width).includes(m[0])&&String(x.aspect).includes(m[1])); }
+  render(rows);
+}
+
+$('#btnSearch').addEventListener('click', search);
+$('#btnReset').addEventListener('click', ()=>{ $('#sizeInput').value=''; ['#selWidth','#selAspect','#selRim','#selBrand','#selPattern'].forEach(s=>$(s).value=''); render(promos); });
+
+// 初始化
+populate(); render(promos);
+</script>
+</body>
+</html>
