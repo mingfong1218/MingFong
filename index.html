@@ -148,17 +148,35 @@ function render(rows){
 }
 
 function search(){
-  const w=$('#selWidth').value,a=$('#selAspect').value,r=$('#selRim').value,b=$('#selBrand').value,p=$('#selPattern').value,svc=$('#selService').value,s=$('#sizeInput').value.trim().toUpperCase();
+  const w=$('#selWidth').value,
+        a=$('#selAspect').value,
+        r=$('#selRim').value,
+        b=$('#selBrand').value,
+        p=$('#selPattern').value,
+        svc=$('#selService').value,
+        s=$('#sizeInput').value.trim().toUpperCase();
+
   let rows=promos.slice();
+
   if(w) rows=rows.filter(x=>String(x.width)==w);
   if(a) rows=rows.filter(x=>String(x.aspect)==a);
   if(r) rows=rows.filter(x=>String(x.rim)==r);
   if(b) rows=rows.filter(x=>x.brand==b);
   if(p) rows=rows.filter(x=>x.pattern==p);
   if(svc) rows=rows.filter(x=>x.serviceType==svc);
-  if(s){ const m=s.match(/\d+/g); rows=rows.filter(x=>String(x.sizeRaw).toUpperCase().includes(s) || sizeText(x).toUpperCase().includes(s)); }
+
+  // 🔍 改良搜尋條件：允許「205 55 16」、「205-55-16」等格式
+  if(s){
+    const sNorm = s.replace(/[^0-9A-Z]/g, ""); // 移除空白與符號
+    rows = rows.filter(x=>{
+      const target = (x.sizeRaw||"") + " " + sizeText(x);
+      const tNorm = target.toUpperCase().replace(/[^0-9A-Z]/g, "");
+      return tNorm.includes(sNorm);
+    });
+  }
+
   render(rows);
-}
+}  
 
 $('#btnSearch').addEventListener('click', search);
 $('#btnReset').addEventListener('click', ()=>{ $('#sizeInput').value=''; ['#selWidth','#selAspect','#selRim','#selBrand','#selPattern','#selService'].forEach(s=>$(s).value=''); render(promos); });
