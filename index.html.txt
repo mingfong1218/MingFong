@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>銘峰輪胎 促銷快查 | 銘峰輪業</title>
+  <meta name="color-scheme" content="dark" />
+  <style>
+    :root {
+      --bg:#05070a;
+      --card:#10151e;
+      --card-soft:#151c27;
+      --muted:#8aa1b1;
+      --text:#e9f0f6;
+      --accent:#ffd233;
+      --border:#242d3a;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:radial-gradient(circle at top,#151f30 0,#05070a 55%);
+      color:var(--text);
+      font-family:"Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    header{
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(5,7,10,.95);
+      backdrop-filter:blur(10px);
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+    .wrap{
+      max-width:980px;
+      margin:auto;
+      padding:14px 20px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand h1{
+      font-size:22px;
+      margin:0;
+      font-weight:900;
+      letter-spacing:2px;
+    }
+    .beta{
+      background:var(--accent);
+      color:#111;
+      font-weight:700;
+      padding:2px 8px;
+      border-radius:999px;
+      font-size:12px;
+      margin-left:8px;
+    }
+    .logo-tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#111722,#06080d);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:13px;
+      color:#f9fafb;
+      gap:6px;
+    }
+    .logo-dot{
+      width:10px;height:10px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%,#fff 0,#ffb300 35%,#ff6b00 80%);
+      box-shadow:0 0 12px rgba(255,180,0,.7);
+    }
+
+    main{
+      padding-bottom:32px;
+    }
+    .card{
+      background:rgba(10,14,20,.98);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 18px 45px rgba(0,0,0,.75);
+      border-radius:18px;
+      padding:16px;
+      margin:16px 20px 0;
+    }
+    @media (min-width:720px){
+      .card{margin:18px auto 0; padding:18px 20px;}
+    }
+
+    .lbl{
+      font-size:12px;
+      color:#b9c7d4;
+      margin-bottom:4px;
+    }
+    .input{
+      width:100%;
+      background:#050811;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:12px;
+      padding:9px 12px;
+      margin-bottom:8px;
+      font-size:14px;
+      appearance:none;
+    }
+    .input:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(255,210,51,.3);
+    }
+    .filters{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:8px;
+    }
+    @media (min-width:720px){
+      .filters{
+        grid-template-columns:repeat(5,minmax(0,1fr));
+      }
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .btn-row{
+      display:flex;
+      gap:8px;
+      margin-top:12px;
+    }
+    button{
+      border:none;
+      border-radius:999px;
+      padding:9px 18px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn-yellow{
+      background:var(--accent);
+      color:#111;
+      box-shadow:0 0 0 1px rgba(0,0,0,.8),0 10px 22px rgba(0,0,0,.8);
+    }
+    .btn-gray{
+      background:#151f2b;
+      color:#e9f0f6;
+    }
+    .status{
+      font-size:12px;
+      color:#b9c7d4;
+      margin-top:8px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:8px;
+      font-size:14px;
+    }
+    thead{
+      background:#0d131d;
+    }
+    th,td{
+      padding:9px 10px;
+      border-top:1px solid rgba(255,255,255,.07);
+      text-align:left;
+    }
+    th{
+      font-size:12px;
+      color:#b9c7d4;
+      font-weight:600;
+    }
+    .price-sale{
+      color:var(--accent);
+      font-weight:800;
+    }
+    footer{
+      margin:24px 20px 12px;
+      text-align:center;
+      color:#8aa1b1;
+      font-size:12px;
+    }
+
+    /* ===== 手機卡片模式 ===== */
+    @media (max-width:768px){
+      .card-table{
+        padding-top:8px;
+      }
+      table, thead, tbody, th, td, tr{
+        display:block;
+      }
+      thead{
+        display:none;
+      }
+      #resultBody tr{
+        background:var(--card-soft);
+        border-radius:14px;
+        margin-bottom:10px;
+        border:1px solid rgba(255,255,255,.06);
+        box-shadow:0 10px 25px rgba(0,0,0,.6);
+        padding:10px 12px;
+      }
+      #resultBody td{
+        border:none;
+        padding:2px 0;
+      }
+      #resultBody td::before{
+        content:attr(data-label);
+        display:inline-block;
+        font-size:11px;
+        color:var(--muted);
+        margin-right:4px;
+        min-width:4em;
+      }
+      #resultBody td[data-label="促銷價"]{
+        margin-top:6px;
+        font-size:18px;
+        font-weight:800;
+      }
+      #resultBody td[data-label="促銷價"]::before{
+        content:"促銷";
+        font-size:11px;
+        margin-right:6px;
+      }
+      #resultBody td[data-label="品牌"]{
+        font-weight:700;
+        font-size:15px;
+        margin-bottom:2px;
+      }
+      #resultBody td[data-label="品牌"]::before{
+        content:"品牌";
+        font-size:11px;
+        margin-right:6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap brand">
+      <div class="logo-tag">
+        <span class="logo-dot"></span>
+        <span>銘峰輪業</span>
+      </div>
+      <h1>輪胎促銷快查 <span class="beta">Beta</span></h1>
+    </div>
+  </header>
+
+  <main>
+    <!-- 查詢條件卡片 -->
+    <section class="card">
+      <div class="lbl">
+        直接輸入尺寸（支援 205/55R16、205 55 16、205-55-16 等格式）
+      </div>
+      <input id="sizeInput" class="input" placeholder="例：205/55R16 或 205 55 16" />
+
+      <div class="filters">
+        <div class="field">
+          <span class="lbl">胎面寬</span>
+          <select id="selWidth" class="input"><option value="">全部</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">扁平比</span>
+          <select id="selAspect" class="input"><option value="">全部</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">輪框尺寸</span>
+          <select id="selRim" class="input"><option value="">全部</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">品牌</span>
+          <select id="selBrand" class="input"><option value="">全部</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">花紋/型號</span>
+          <select id="selPattern" class="input"><option value="">全部</option></select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-yellow" id="btnSearch">查詢</button>
+        <button class="btn-gray" id="btnReset">清除</button>
+      </div>
+      <div class="status" id="statusText">載入中…</div>
+    </section>
+
+    <!-- 結果表格 / 手機卡片 -->
+    <section class="card card-table">
+      <table>
+        <thead>
+          <tr>
+            <th>品牌</th>
+            <th>花紋/型號</th>
+            <th>尺寸</th>
+            <th>規格</th>
+            <th>原價</th>
+            <th>促銷價</th>
+            <th>年份</th>
+            <th>數量</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </section>
+
+    <footer>© 銘峰輪業 ｜ Demo 版本，實際促銷以門市公告為準。</footer>
+  </main>
+
+<script>
+/** === 設定：Google Sheet 來源 === */
+const SHEET_ID = "1HLZiY_X0LgQZ79q8YBtfTC6rT1DFX6lZC4gUVlGBuCs";
+const GID      = "575923994"; // 後台_促銷資料更新
+const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+
+let promos = [];
+
+const $ = (s) => document.querySelector(s);
+function uniq(arr){ return [...new Set(arr.filter(v => v !== "" && v != null))]; }
+
+/** 解析尺寸字串：抓寬 / 扁平比 / 輪框尺寸 */
+function parseSize(sizeRaw){
+  if(!sizeRaw) return { width:"", aspect:"", rim:"" };
+  const s = String(sizeRaw).toUpperCase().replace(/\s+/g,"");
+  // 例：225/55R19、225/55ZR19、205-55-16、7.50R16 等
+  const m = s.match(/(\d{3})[\/\- ]?(\d{2})[A-Z]*R?(\d{2})/);
+  if(m){
+    return { width:m[1], aspect:m[2], rim:m[3] };
+  }
+  return { width:"", aspect:"", rim:"" };
+}
+
+/** 將一列資料轉成物件 */
+function rowToPromo(rowObj){
+  const brand   = rowObj["brand"] || "";
+  const pattern = rowObj["pattern"] || "";
+  const sizeRaw = rowObj["size"] || "";
+  const specRaw = rowObj["spec"] || "";
+  const origin  = rowObj["originPrice"] || "";
+  const promo   = rowObj["promoPrice"] || "";
+  const year    = rowObj["year"] || "";
+  const qty     = rowObj["qty"] || "";
+
+  const sz = parseSize(sizeRaw);
+
+  return {
+    brand,
+    pattern,
+    sizeRaw,
+    specRaw,
+    originPrice: origin,
+    promoPrice: promo,
+    year,
+    qty,
+    width: sz.width,
+    aspect: sz.aspect,
+    rim: sz.rim
+  };
+}
+
+/** 價格加上貨幣與千分位 */
+function money(n){
+  if(n === undefined || n === null || n === "") return "";
+  const num = Number(String(n).replace(/,/g,""));
+  if(Number.isNaN(num)) return n;
+  return "＄" + num.toLocaleString("zh-Hant", { maximumFractionDigits: 0 });
+}
+
+/** 填入下拉選單 */
+function fillSelect(sel, arr){
+  const el = $(sel);
+  el.innerHTML = '<option value="">全部</option>';
+  arr.forEach(v=>{
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    el.appendChild(opt);
+  });
+}
+
+/** 依所有資料填寫篩選條件 */
+function populateFilters(){
+  const widths   = uniq(promos.map(p=>p.width)).sort((a,b)=>Number(a)-Number(b));
+  const aspects  = uniq(promos.map(p=>p.aspect)).sort((a,b)=>Number(a)-Number(b));
+  const rims     = uniq(promos.map(p=>p.rim)).sort((a,b)=>Number(a)-Number(b));
+  const brands   = uniq(promos.map(p=>p.brand)).sort();
+  const patterns = uniq(promos.map(p=>p.pattern)).sort();
+  fillSelect("#selWidth", widths);
+  fillSelect("#selAspect", aspects);
+  fillSelect("#selRim", rims);
+  fillSelect("#selBrand", brands);
+  fillSelect("#selPattern", patterns);
+}
+
+/** 將 rows 渲染到表格／手機卡片 */
+function renderRows(rows){
+  const body = $("#resultBody");
+  body.innerHTML = "";
+  if(!rows.length){
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td colspan="8" style="color:#b9c7d4;">查無符合條件的資料</td>';
+    body.appendChild(tr);
+    return;
+  }
+
+  rows.forEach(r=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td data-label="品牌">${r.brand || ""}</td>` +
+      `<td data-label="花紋/型號">${r.pattern || ""}</td>` +
+      `<td data-label="尺寸">${r.sizeRaw || ""}</td>` +
+      `<td data-label="規格">${r.specRaw || ""}</td>` +
+      `<td data-label="原價">${money(r.originPrice)}</td>` +
+      `<td data-label="促銷價" class="price-sale">${money(r.promoPrice)}</td>` +
+      `<td data-label="年份">${r.year || ""}</td>` +
+      `<td data-label="數量">${r.qty || ""}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+/** 查詢（下拉 + 尺寸字串） */
+function search(){
+  const w = $("#selWidth").value;
+  const a = $("#selAspect").value;
+  const r = $("#selRim").value;
+  const b = $("#selBrand").value;
+  const p = $("#selPattern").value;
+  const s = $("#sizeInput").value.trim().toUpperCase();
+
+  let rows = promos.slice();
+
+  if(w) rows = rows.filter(x => String(x.width)  === w);
+  if(a) rows = rows.filter(x => String(x.aspect) === a);
+  if(r) rows = rows.filter(x => String(x.rim)    === r);
+  if(b) rows = rows.filter(x => x.brand   === b);
+  if(p) rows = rows.filter(x => x.pattern === p);
+
+  if(s){
+    const sNorm = s.replace(/[^0-9A-Z]/g, "").replace(/R/g,"");
+    rows = rows.filter(x=>{
+      const target = (x.sizeRaw || "").toUpperCase();
+      const tNorm = target.replace(/[^0-9A-Z]/g, "").replace(/R/g,"");
+      return tNorm.includes(sNorm);
+    });
+  }
+
+  renderRows(rows);
+}
+
+/** 清除條件 */
+function resetAll(){
+  $("#sizeInput").value = "";
+  ["#selWidth","#selAspect","#selRim","#selBrand","#selPattern"].forEach(sel=>{
+    $(sel).value = "";
+  });
+  renderRows(promos);
+}
+
+/** 從 Google Sheet 載入資料 */
+async function loadFromSheet(){
+  const status = $("#statusText");
+  try{
+    status.textContent = "從後台_促銷資料更新 讀取資料中…";
+
+    const res = await fetch(GVIZ_URL);
+    const text = await res.text();
+
+    const jsonStr = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+    const data = JSON.parse(jsonStr);
+
+    // 欄位名稱從 cols 來（第一列）
+    const cols = (data.table.cols || []).map((c, idx) => {
+      const label = (c.label || c.id || "").trim();
+      return label || ("COL" + idx);
+    });
+
+    const rows = data.table.rows || [];
+
+    promos = rows.map(row => {
+      const obj = {};
+      (row.c || []).forEach((cell, idx) => {
+        const key = cols[idx] || ("COL" + idx);
+        // 先用 cell.f（格式化文字：例如「售完」），沒有才用 cell.v
+        const raw = cell ? (cell.f != null ? cell.f : cell.v) : "";
+        obj[key] = raw;
+      });
+      return rowToPromo(obj);
+    });
+
+    status.textContent = `已載入 ${promos.length} 筆資料。`;
+    populateFilters();
+    renderRows(promos);
+  }catch(e){
+    console.error(e);
+    status.textContent = "讀取資料時發生錯誤，請稍後重試。";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  $("#btnSearch").addEventListener("click", search);
+  $("#btnReset").addEventListener("click", resetAll);
+  loadFromSheet();
+});
+</script>
+</body>
+</html>
